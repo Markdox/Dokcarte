@@ -3,17 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>MyCards - Wallet</title>
+    <title>MyCards Pro</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+    <script src="https://unpkg.com/html5-qrcode"></script>
 </head>
 <body>
 
     <div class="app-container">
         <header>
-            <h1>I MIEI CODICI</h1>
-            <button id="openAddModal" class="add-btn">+</button>
+            <div class="top-bar">
+                <h1>Le mie Carte</h1>
+                <button id="openAddModal" class="add-btn">+</button>
+            </div>
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Cerca negozio..." onkeyup="filterCards()">
+            </div>
         </header>
 
         <main id="cardList" class="card-list">
@@ -22,8 +28,10 @@
         <div id="addModal" class="modal">
             <div class="modal-content">
                 <h2>Nuova Tessera</h2>
-                <input type="text" id="cardName" placeholder="Nome Negozio (es. Esselunga)">
-                <input type="text" id="cardCode" placeholder="Numero Codice a Barre">
+                <div id="reader" style="width: 100%; border-radius: 10px; overflow: hidden; margin-bottom: 10px; display: none;"></div>
+                <button id="scanBtn" class="action-btn">📸 Scansiona Codice</button>
+                <input type="text" id="cardName" placeholder="Nome Negozio">
+                <input type="text" id="cardCode" placeholder="Numero Codice">
                 <div class="modal-btns">
                     <button onclick="closeModal()" class="cancel-btn">Annulla</button>
                     <button onclick="saveCard()" class="save-btn">Salva</button>
@@ -32,11 +40,14 @@
         </div>
 
         <div id="viewModal" class="modal" onclick="closeView()">
-            <div class="view-content">
+            <div class="view-content" onclick="event.stopPropagation()">
                 <h2 id="viewTitle"></h2>
-                <svg id="barcodeCanvas"></svg>
+                <div class="barcode-wrapper">
+                    <svg id="barcodeCanvas"></svg>
+                </div>
                 <p id="viewCodeText"></p>
-                <span>Tocca per chiudere</span>
+                <button onclick="deleteCurrentCard()" class="delete-btn">Elimina Tessera</button>
+                <span class="close-hint">Tocca fuori per chiudere</span>
             </div>
         </div>
 
