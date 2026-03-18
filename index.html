@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>MyCards - Wallet</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+</head>
+<body>
+
+    <div class="app-container">
+        <header>
+            <h1>I MIEI CODICI</h1>
+            <button id="openAddModal" class="add-btn">+</button>
+        </header>
+
+        <main id="cardList" class="card-list">
+            </main>
+
+        <div id="addModal" class="modal">
+            <div class="modal-content">
+                <h2>Nuova Tessera</h2>
+                <input type="text" id="cardName" placeholder="Nome Negozio (es. Esselunga)">
+                <input type="text" id="cardCode" placeholder="Numero Codice a Barre">
+                <div class="modal-btns">
+                    <button onclick="closeModal()" class="cancel-btn">Annulla</button>
+                    <button onclick="saveCard()" class="save-btn">Salva</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="viewModal" class="modal" onclick="closeView()">
+            <div class="view-content">
+                <h2 id="viewTitle"></h2>
+                <svg id="barcodeCanvas"></svg>
+                <p id="viewCodeText"></p>
+                <span>Tocca per chiudere</span>
+            </div>
+        </div>
+
+        <footer>
+            <div class="credits">Made by Marco and Gemini</div>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
